@@ -14,10 +14,13 @@ import org.springframework.stereotype.Component;
 public class UserFeignFallbackApi implements UserApi {
 
     public Long saveUser(UserDto userDto) {
-        return null;
+
+        return -1L;
     }
 
     public UserDto getById(Long id) {
-        return null;
+        UserDto userDto = new UserDto();
+        userDto.setId(-1L);
+        return userDto;
     }
 }
