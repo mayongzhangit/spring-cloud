@@ -19,5 +19,5 @@ public interface UserApi {
     Long saveUser(UserDto userDto);
 
     @GetMapping(USER_PREFIX+"/get/{id}")
-    UserDto getById(@PathVariable("id") Long id);
+    UserDto getById(@PathVariable("id") Long id) throws InterruptedException;
 }

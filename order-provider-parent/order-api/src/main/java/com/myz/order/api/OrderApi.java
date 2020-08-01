@@ -21,6 +21,6 @@ public interface OrderApi {
     Long generate(@PathVariable("goodsId") Long goodsId);
 
     @GetMapping(ORDER_PREFIX+"/list-by/{userId}")
-    List<OrderDto> listByUserId(@PathVariable("userId")Long userId);
+    List<OrderDto> listByUserId(@PathVariable("userId")Long userId) throws InterruptedException;
 
 }

@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.Random;
 
 /**
  * @author yzMa
@@ -18,6 +19,7 @@ import java.util.Date;
 @RequestMapping("/user")
 public class UserResource implements UserApi {
 
+    Random random = new Random();
     /**
      *
      * @param userDto
@@ -35,11 +37,17 @@ public class UserResource implements UserApi {
      * @return
      */
     @GetMapping("/get/{id}")
-    public UserDto getById(@PathVariable Long id) {
+    public UserDto getById(@PathVariable Long id) throws InterruptedException {
+        log.info("user#getById entry");
+        int sleepTime = random.nextInt(5000);
+
+        Thread.sleep(sleepTime);
+
         UserDto userDto = new UserDto();
         userDto.setId(id);
         userDto.setName("name"+id);
         userDto.setBirthday(new Date());
+        log.info("user#getById exit");
         return userDto;
     }
 }
