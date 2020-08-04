@@ -42,6 +42,7 @@ public class OrderResource implements OrderApi {
             orderDto.setGoodsId((long) i+userId);
             orderDto.setUserId((long) i+userId);
             orderDto.setPrice((double) i+userId);
+            orderDto.setSleepTime(sleepTime);
             dataLs.add(orderDto);
         }
         log.info("order#listByUserId exit");

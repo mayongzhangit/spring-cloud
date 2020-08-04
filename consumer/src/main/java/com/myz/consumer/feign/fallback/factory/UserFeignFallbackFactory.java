@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserFeignFallbackFactory implements FallbackFactory<UserApi> {
     public UserApi create(Throwable cause) {
+        log.error("UserFeignFallbackFactory cause",cause);
         return new UserFeignFallbackApi();
     }
 }

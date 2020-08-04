@@ -18,4 +18,5 @@ public class OrderDto implements Serializable {
     private Long userId;
     private Long goodsId;
     private Double price;
+    private int sleepTime;
 }

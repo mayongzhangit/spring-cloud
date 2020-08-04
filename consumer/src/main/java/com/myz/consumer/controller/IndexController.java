@@ -41,8 +41,8 @@ public class IndexController {
         UserDto userDto = userFeignApi.getById(userId);
         indexVo.setUserDto(userDto);
 
-//        List<OrderDto> orderDtos = orderFeignApi.listByUserId(userId);
-//        indexVo.setOrderDtos(orderDtos);
+        List<OrderDto> orderDtos = orderFeignApi.listByUserId(userId);
+        indexVo.setOrderDtos(orderDtos);
         log.info("index exit");
         return indexVo;
     }

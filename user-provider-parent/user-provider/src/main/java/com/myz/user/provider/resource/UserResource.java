@@ -47,6 +47,7 @@ public class UserResource implements UserApi {
         userDto.setId(id);
         userDto.setName("name"+id);
         userDto.setBirthday(new Date());
+        userDto.setSleepTime(sleepTime);
         log.info("user#getById exit");
         return userDto;
     }

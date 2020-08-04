@@ -11,6 +11,8 @@ management:
       basePath: /actuator
       exposure:
         include: "*"
+my:
+  data: myz
 ---
 spring:
   profiles: local
