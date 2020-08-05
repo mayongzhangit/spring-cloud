@@ -1,0 +1,5 @@
+spring:
+  profiles:
+    include: eureka,zipkin
+  application:
+    name: sc-zipkin-server
