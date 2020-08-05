@@ -1,14 +1,14 @@
 spring:
   zipkin:
-    baseUrl: sc-zipkin-server # 该项http上报才有意义
+    baseUrl: http://localhost:9411/ #sc-zipkin-server # 该项sender http方式上报才有意义
   sleuth:
     sampler:
       probability: 1
     messaging:
       kafka:
         enabled: false
-  profiles:
-    include: zipkin-kafka
+#  profiles:
+#    include: zipkin-kafka
 
 ---
 spring:
