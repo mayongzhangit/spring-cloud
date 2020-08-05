@@ -1,7 +1,7 @@
 spring:
   profiles:
     active: local
-    include: tomcat,feign,sentinel,hystrix,ribbon,zipkin
+    include: tomcat,feign,sentinel,hystrix,ribbon,zipkin,eureka
   mvc:
     servlet:
       loadOnStartup: 1

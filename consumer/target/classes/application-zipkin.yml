@@ -1,6 +1,6 @@
 spring:
   zipkin:
-    baseUrl: "http://localhost:9411"
+    baseUrl: sc-zipkin-server # 该项http上报才有意义
   sleuth:
     sampler:
       probability: 1

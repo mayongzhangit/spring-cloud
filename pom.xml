@@ -16,6 +16,8 @@
       <module>order-provider-parent</module>
     <module>gateway</module>
       <module>Demo</module>
+      <module>zipkin-server</module>
+      <module>discovery-server</module>
   </modules>
 
   <name>spring-cloud</name>
