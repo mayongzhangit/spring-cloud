@@ -1,8 +1,8 @@
 feign:
   hystrix:
-    enabled: 1
+    enabled: true #1
   sentinel:
-    enabled: true
+    enabled: false #true
 # feign.hystrix.enabled的值在依赖了Sleuth和依赖Sentinel需要将其设置为一个既不是true也不是false的值！！
 # false --> TraceFeignClientAutoConfiguration.feignBuilder
 # true  --> TraceFeignClientAutoConfiguration.feignHystrixBuilder，但可以将Hystrix-core排除掉

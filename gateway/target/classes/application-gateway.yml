@@ -1,0 +1,29 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: sc-user-provider
+          uri: http://localhost:8081/
+          order: 0
+          predicates:
+            - Path=/user/** # 构造方法方式
+          filters:
+            - StripPrefix=1
+        - id: sc-consumer
+          uri: http://localhost:8079/
+          order: 0
+          predicates:
+            - name: Path
+              args:
+                patterns: /consumer/**
+          filters:
+            - StripPrefix=1
+        - id: sc-order-provider
+          uri: http://localhost:8083/
+          order: 0
+          predicates:
+            - name: Path
+              args:
+                patterns: /order/**
+          filters:
+            - StripPrefix=1

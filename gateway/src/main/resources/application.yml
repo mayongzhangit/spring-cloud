@@ -1,0 +1,4 @@
+spring:
+  profiles:
+    include: gateway,tomcat,zipkin
+    active: local

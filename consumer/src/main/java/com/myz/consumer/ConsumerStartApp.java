@@ -18,4 +18,5 @@ public class ConsumerStartApp {
 
         SpringApplication.run(ConsumerStartApp.class,args);
     }
+
 }
