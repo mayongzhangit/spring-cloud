@@ -18,7 +18,7 @@ spring:
   profiles: local
   kafka:
     bootstrapServers: dev.zipkin.sc-demo.game.sg2.mq:9092
-    topic: 自己的业务topic（跟zipkin的topic不一样）
+#    topic: 自己的业务topic（跟zipkin的topic不一样）
 #    producer:
 #      key-serializer: org.apache.kafka.common.serialization.StringSerializer
 #      value-serializer: org.apache.kafka.common.serialization.StringSerializer
@@ -37,7 +37,7 @@ spring:
   profiles: dev
   kafka:
     bootstrapServers: dev.zipkin.sc-demo.game.sg2.mq:9092
-    topic: 自己的业务topic（跟zipkin的topic不一样）
+#    topic: 自己的业务topic（跟zipkin的topic不一样）
 #    producer:
 #      key-serializer: org.apache.kafka.common.serialization.StringSerializer
 #      value-serializer: org.apache.kafka.common.serialization.StringSerializer

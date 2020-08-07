@@ -1,3 +1,0 @@
-spring:
-  application:
-    name: sc-gateway # loggingSystem loback-spring 内部变量需要，防止BootStrapApplicationListener创建的日志文件

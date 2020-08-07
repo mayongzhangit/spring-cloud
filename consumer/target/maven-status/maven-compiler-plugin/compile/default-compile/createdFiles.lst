@@ -1,9 +1,0 @@
-com\myz\consumer\feign\fallback\factory\UserFeignFallbackFactory.class
-com\myz\consumer\ConsumerStartApp.class
-com\myz\consumer\controller\vo\IndexVo.class
-com\myz\consumer\controller\IndexController.class
-com\myz\consumer\feign\OrderFeignApi.class
-com\myz\consumer\feign\fallback\UserFeignFallbackApi.class
-com\myz\consumer\feign\fallback\factory\OrderFeignFallbackFactory.class
-com\myz\consumer\feign\fallback\OrderFeignFallbackApi.class
-com\myz\consumer\feign\UserFeignApi.class
