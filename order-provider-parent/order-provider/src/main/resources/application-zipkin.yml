@@ -17,12 +17,12 @@ spring:
     sender:
       type: kafka
     kafka:
-      topic: game_sc-demo_zipkin
+      topic: game_zipkin_collector
   kafka:
     #    bootstrapServers: 10.20.8.92:9092,10.20.2.4:9092,10.20.11.104:9092
     #    bootstrap-servers: dev.game.game.sg2.kafka:9092
     bootstrapServers: dev.zipkin.sc-demo.game.sg2.mq:9092
-    topic: game_sc-demo_zipkin
+    topic: game_zipkin_collector
     producer:
       #      bootstrap-servers: 10.20.8.92:9092,10.20.2.4:9092,10.20.11.104:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer

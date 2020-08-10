@@ -28,7 +28,7 @@ public class KafkaController {
     @GetMapping("/send")
     public void send(String message){
 
-        kafkaTemplate.send("game_sc-demo_zipkin","message"+random.nextInt());
+        kafkaTemplate.send("game_zipkin_collector","message"+random.nextInt());
     }
 }
 

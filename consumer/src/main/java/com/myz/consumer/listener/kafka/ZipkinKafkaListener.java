@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ZipkinKafkaListener {
 
-    @KafkaListener(id = "myz-zipkin-kafka",groupId = "game_sc-demo_zipkinConsumeGroup-2",topics = {"game_sc-demo_zipkin"})
+    @KafkaListener(id = "myz-zipkin-kafka",groupId = "game_zipkin_collector",topics = {"game_zipkin_collector"})
     public void receive(String message){
         log.info("----> message:{}", message);
     }

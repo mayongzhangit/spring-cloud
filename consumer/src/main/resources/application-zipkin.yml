@@ -4,7 +4,7 @@ spring:
     sender:
       type: kafka
     kafka:
-      topic: game_sc-demo_zipkin # zipkin使用的kafka跟业务kafka共享bootstrapServers，但是zipkin有自己的topic、自己的生产者！！ ZipkinKafkaSenderConfiguration.ZipkinKafkaSenderBeanConfiguration
+      topic: game_zipkin_collector # zipkin使用的kafka跟业务kafka共享bootstrapServers，但是zipkin有自己的topic、自己的生产者！！ ZipkinKafkaSenderConfiguration.ZipkinKafkaSenderBeanConfiguration
   sleuth:
     sampler:
       probability: 1
