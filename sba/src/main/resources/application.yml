@@ -1,11 +1,18 @@
 spring:
   profiles:
     active: local
-    include: tomcat,feign,sentinel,hystrix,ribbon,zipkin,sba
   mvc:
     servlet:
       loadOnStartup: 1
-
+  application:
+    name: sc-sba
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+server:
+  port: 9876
+  contextPath: /
 ---
 spring:
   profiles: local

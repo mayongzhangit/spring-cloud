@@ -13,6 +13,7 @@
         <module name="user-provider" />
         <module name="user-api" />
         <module name="order-api" />
+        <module name="sba" />
         <module name="discovery-server" />
         <module name="consumer" />
         <module name="order-provider" />

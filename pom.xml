@@ -18,6 +18,7 @@
       <module>Demo</module>
       <module>zipkin-server</module>
       <module>discovery-server</module>
+    <module>sba</module>
   </modules>
 
   <name>spring-cloud</name>

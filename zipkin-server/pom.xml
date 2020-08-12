@@ -58,4 +58,12 @@
         <!--maven 依赖传递导致版本过低的依赖，显示定义 start-->
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
