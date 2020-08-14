@@ -14,11 +14,13 @@
     <module>user-provider-parent</module>
       <module>consumer</module>
       <module>order-provider-parent</module>
-    <module>gateway</module>
+      <module>gateway</module>
       <module>Demo</module>
       <module>zipkin-server</module>
       <module>discovery-server</module>
-    <module>sba</module>
+      <module>sba</module>
+      <module>thrid-part-provider</module>
+      <module>common</module>
   </modules>
 
   <name>spring-cloud</name>

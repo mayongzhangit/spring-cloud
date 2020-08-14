@@ -9,4 +9,4 @@ spring:
   applicaton:
     name: sc-demo
   profiles:
-    include: zipkin
+    active: local

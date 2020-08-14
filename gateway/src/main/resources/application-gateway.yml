@@ -1,29 +1,34 @@
 spring:
   cloud:
     gateway:
+#      defaultFilters:
+#        - name: Hystrix
+#          args:
+#            name: defaultFallback
+#            fallbackUri: forward:/gateway-hystrix/fallback
       routes:
-        - id: sc-user-provider
+        - id: sc-user-provider-id
           uri: http://localhost:8081/
           order: 0
           predicates:
-            - Path=/user/** # 构造方法方式
+            - Path=/api-user/** # 构造方法方式
           filters:
             - StripPrefix=1
-        - id: sc-consumer
+        - id: sc-consumer-id
           uri: http://localhost:8079/
           order: 0
           predicates:
             - name: Path
               args:
-                patterns: /consumer/**
+                patterns: /api-consumer/**
           filters:
             - StripPrefix=1
-        - id: sc-order-provider
+        - id: sc-order-provider-id
           uri: http://localhost:8083/
           order: 0
           predicates:
             - name: Path
               args:
-                patterns: /order/**
+                patterns: /api-order/**
           filters:
             - StripPrefix=1

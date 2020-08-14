@@ -29,6 +29,19 @@ public class UserResource implements UserApi {
     private RestTemplate myRestTemplate;
 
     Random random = new Random();
+
+    @GetMapping("/stress-test")
+    public String stressTest(@RequestParam Long cost,boolean exFlag){
+        if (exFlag) throw new RuntimeException("manual ex");
+
+        try {
+            Thread.sleep(cost);
+        } catch (InterruptedException e) {
+            log.error("user ex",e);
+        }
+        return "test success";
+    }
+
     /**
      *
      * @param userDto

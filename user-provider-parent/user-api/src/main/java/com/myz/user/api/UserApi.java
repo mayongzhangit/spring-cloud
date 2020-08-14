@@ -4,6 +4,7 @@ import com.myz.user.dto.UserDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author yzMa
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 public interface UserApi {
 
     String USER_PREFIX = "/user";
+
+    @GetMapping(USER_PREFIX+"/stress-test")
+    String stressTest(@RequestParam Long cost, boolean exFlag);
 
     @PostMapping(USER_PREFIX+"/save")
     Long saveUser(UserDto userDto);

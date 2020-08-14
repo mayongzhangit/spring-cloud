@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
  * @email 2641007740@qq.com
  */
 @Slf4j
-@Component
+//@Component
 public class ZipkinKafkaListener {
 
-    @KafkaListener(id = "myz-zipkin-kafka",groupId = "game_zipkin_collectorConsumeGroup",topics = {"game_zipkin_collector"})
+    @KafkaListener(id = "myz-zipkin-kafka",groupId = "game_zipkin_collectorConsumeGroup",topics = {"zipkin-topic_dev"})
     public void receive(String message){
         log.info("Receive Message:{}", message);
     }

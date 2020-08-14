@@ -13,6 +13,10 @@ import org.springframework.stereotype.Component;
 //@Component
 public class UserFeignFallbackApi implements UserApi {
 
+    public String stressTest(Long cost, boolean exFlag) {
+        return "stress test fallback";
+    }
+
     public Long saveUser(UserDto userDto) {
 
         return -1L;

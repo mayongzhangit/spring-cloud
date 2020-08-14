@@ -17,10 +17,15 @@ public class GatewayStartApp implements CommandLineRunner {
 
     public static void main(String[] args) {
 
+        System.setProperty("reactor.netty.http.server.accessLogEnabled","true");
         SpringApplication.run(GatewayStartApp.class,args);
     }
 
     public void run(String... args) throws Exception {
-        log.info("gateway started successfully!");
+        log.info("\n*********gateway config*********\n" +
+                "1) Reactor Netty Access Log (https://cloud.spring.io/spring-cloud-static/spring-cloud-gateway/2.1.5.RELEASE/single/spring-cloud-gateway.html#_reactor_netty_access_logs)\n" +
+                "2) Hystrix fallback forword set GatewayHystrixFallbackController\n" +
+                "3)\n"
+        );
     }
 }
