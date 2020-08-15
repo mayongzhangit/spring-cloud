@@ -35,7 +35,7 @@ public class GatewayHystrixFallbackController {
         String code = ApiResult.ERROR_CODE;
         String msg = ApiResult.ERROR_MSG;
 
-        if (throwable instanceof HystrixTimeoutException){
+        if (throwable instanceof HystrixTimeoutException){ // 为什么没有找到服务会变成HystrixTimeoutException？
             code = "time-out";
             msg = "超时";
             log.error("time-out originalReqUrl0={},size={} routed?{}",firstOriginReqUrl.toString(),originalReqUrls.size(),routed);
