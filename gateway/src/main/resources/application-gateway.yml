@@ -1,26 +1,43 @@
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHOR # 默认就是 HystrixGatewayFilterFactory.apply(HystrixGatewayFilterFactory.Config) -> HystrixObservableCommand.Setter.setDefaults
+          thread:
+            timeoutInMilliseconds: 10000 # 大于
+#        timeout:
+#          enabled: false
 spring:
   cloud:
     gateway:
+      filter:
+        request-rate-limiter:
+          deny-empty-key: true
+          empty-key-status-code: 403
+      httpclient:
+#        pool:
+#          type: FIXED # Fixed 目测，出现错的时候不会释放连接？？？导致连接达到maxConnections之后出现了不在发出请求的问题？？？？
+#          maxConnections: 3
+#          acquireTimeout: 3000
+        wiretap: true
+        connectTimeout: 45000
+        responseTimeout: 9000
       defaultFilters:
         - name: Hystrix
           args:
             name: defaultFallback
             fallbackUri: forward:/gateway-hystrix/fallback
+        - name: RequestRateLimiter
+          args:
+            rate-limiter:
+            key-resolver:
       routes:
         - id: sc-user-provider-id
-          uri: http://localhost:8081/
+          uri: lb://SC-USER-PROVIDER # http://localhost:8081/
           order: 0
           predicates:
             - Path=/api-user/** # 构造方法方式
-            - Weight=userGroup,5
-          filters:
-            - StripPrefix=1
-        - id: sc-user-provider-id2
-          uri: http://localhost:8787/
-          order: 0
-          predicates:
-            - Path=/api-user/** # 构造方法方式
-            - Weight=userGroup,5
           filters:
             - StripPrefix=1
         - id: sc-consumer-id
@@ -39,5 +56,14 @@ spring:
             - name: Path
               args:
                 patterns: /api-order/**
+            - Weight=userGroup,5
+          filters:
+            - StripPrefix=1
+        - id: sc-order-provider-id2
+          uri: http://localhost:8084/
+          order: 0
+          predicates:
+            - Path=/api-order/** # 构造方法方式
+            - Weight=userGroup,5
           filters:
             - StripPrefix=1

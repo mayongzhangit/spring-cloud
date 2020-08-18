@@ -27,6 +27,12 @@
       <groupId>com.aliyun</groupId>
       <artifactId>alibaba-dingtalk-service-sdk</artifactId>
       <version>1.0.1</version>
+      <exclusions>
+        <exclusion>
+          <groupId>javax.jms</groupId>
+          <artifactId>jms</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
   </dependencies>
 

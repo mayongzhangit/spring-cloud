@@ -1,4 +1,4 @@
 spring:
   profiles:
-    include: gateway,tomcat,zipkin,sba
+    include: gateway,tomcat,zipkin,sba,eureka,ribbon
     active: local

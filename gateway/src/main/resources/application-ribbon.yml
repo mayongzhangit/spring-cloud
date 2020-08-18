@@ -1,0 +1,13 @@
+ribbon:
+  ServerListRefreshInterval: 60000 # PollingServerListUpdater 定时任务60s去注册中心拉去一次更新本地服务列表
+  eager-load:
+    enabled: true
+    clients:
+      - sc-user-provider
+      - sc-order-provider
+# ArchaiusAutoConfiguration.configurableEnvironmentConfiguration Spring配置可以被archaius加载
+sc-user-provider:
+  ribbon:
+    ServerListRefreshInterval: 60000 # 60s从注册中心拉去一次
+#    listOfServers:
+#    DynamicServerListLoadBalancer.ThreadPoolSize: 1 # 不生效
