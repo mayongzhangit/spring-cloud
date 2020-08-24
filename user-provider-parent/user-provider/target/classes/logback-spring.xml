@@ -69,26 +69,6 @@
         </filter>
     </appender>
 
-    <!-- gateway access log config start-->
-    <appender name="accessLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_FILE_PREFIX}-access_log.log</file>
-        <encoder>
-            <pattern>%msg%n</pattern>
-        </encoder>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_FILE_ERROR_PREFIX}-access_log.log.%d{yyyy-MM-dd}</fileNamePattern>
-            <maxHistory>7</maxHistory>
-            <totalSizeCap>60GB</totalSizeCap>
-        </rollingPolicy>
-    </appender>
-    <appender name="async" class="ch.qos.logback.classic.AsyncAppender">
-        <appender-ref ref="accessLog" />
-    </appender>
-    <logger name="reactor.netty.http.server.AccessLog" level="INFO" additivity="false">
-        <appender-ref ref="async"/>
-    </logger>
-    <!-- gateway access log config end-->
-
     <root level="INFO" >
         <appender-ref ref="FILE" />
         <appender-ref ref="FILE-ERROR"/>

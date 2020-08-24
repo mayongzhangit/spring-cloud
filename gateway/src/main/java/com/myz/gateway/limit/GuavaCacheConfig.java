@@ -11,9 +11,13 @@ import java.util.concurrent.TimeUnit;
  * @date 2020/8/18 18:49
  * @email 2641007740@qq.com
  */
-public class GuavaConfig {
+public class GuavaCacheConfig {
 
     private Cache<String,Integer> cache = CacheBuilder.newBuilder()
                                             .expireAfterWrite(1, TimeUnit.SECONDS)
                                             .build();
+
+    public void acquire(int i){
+
+    }
 }

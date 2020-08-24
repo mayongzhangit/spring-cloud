@@ -3,8 +3,8 @@ ribbon:
   eager-load:
     enabled: true
     clients:
-      - sc-user-provider
-      - sc-order-provider
+      - SC-USER-PROVIDER
+      - SC-ORDER-PROVIDER
 # ArchaiusAutoConfiguration.configurableEnvironmentConfiguration Spring配置可以被archaius加载
 sc-user-provider:
   ribbon:

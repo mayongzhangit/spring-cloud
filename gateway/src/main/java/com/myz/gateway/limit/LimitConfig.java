@@ -35,32 +35,33 @@ public class LimitConfig {
         return exchange -> Mono.just(exchange.getRequest().getRemoteAddress().getHostName());
     }
 
-    /**
-     * @see {@link RequestRateLimiterGatewayFilterFactory}
-     */
-    @Bean
-    @Primary
-    public RateLimiter guavaRateLimit(){
-        return new RateLimiter() {
-            @Override
-            public Mono<Response> isAllowed(String routeId, String id) {
-                return null;
-            }
-
-            @Override
-            public Map getConfig() {
-                return null;
-            }
-
-            @Override
-            public Class getConfigClass() {
-                return null;
-            }
-
-            @Override
-            public Object newConfig() {
-                return null;
-            }
-        };
-    }
+//    /**
+//     * @see {@link RequestRateLimiterGatewayFilterFactory}
+//     */
+//    @Bean
+//    @Primary
+//    public RateLimiter guavaRateLimit(){
+//
+//        return new RateLimiter() {
+//            @Override
+//            public Mono<Response> isAllowed(String routeId, String id) {
+//                return null;
+//            }
+//
+//            @Override
+//            public Map getConfig() {
+//                return null;
+//            }
+//
+//            @Override
+//            public Class getConfigClass() {
+//                return null;
+//            }
+//
+//            @Override
+//            public Object newConfig() {
+//                return null;
+//            }
+//        };
+//    }
 }

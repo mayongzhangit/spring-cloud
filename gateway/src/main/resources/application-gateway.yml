@@ -28,18 +28,19 @@ spring:
           args:
             name: defaultFallback
             fallbackUri: forward:/gateway-hystrix/fallback
-        - name: RequestRateLimiter
-          args:
-            rate-limiter:
-            key-resolver:
       routes:
         - id: sc-user-provider-id
-          uri: lb://SC-USER-PROVIDER # http://localhost:8081/
+          uri: lb://SC-USER-PROVIDER # http://localhost:8081/ #
           order: 0
           predicates:
             - Path=/api-user/** # 构造方法方式
           filters:
             - StripPrefix=1
+            - name: RequestRateLimiter
+              args:
+                guava-rate-limiter.permitsPerSecond: 5
+                guava-rate-limiter.warmupPeriodMs: 1000
+                key-resolver: "#{@ipKeyResolver}"
         - id: sc-consumer-id
           uri: http://localhost:8079/
           order: 0

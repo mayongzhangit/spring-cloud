@@ -2,6 +2,7 @@ package com.myz.gateway.fallback;
 
 import com.myz.common.util.ApiResult;
 import com.netflix.hystrix.exception.HystrixTimeoutException;
+import io.netty.channel.AbstractChannel;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.server.ServerWebExchange;
 
+import java.net.ConnectException;
 import java.net.URI;
 import java.util.LinkedHashSet;
 
@@ -51,9 +53,9 @@ public class GatewayHystrixFallbackController {
             log.error("hystrix-timeout {}",errorDetail);
         }else if (throwable instanceof ServiceUnavailableException){
             code = "service-unavailable";
-            msg = "服务不可用";
+            msg = "[服务熔断]不可用";
             log.error("service-unavailable {}",errorDetail);
-        }else if (throwable instanceof ResponseStatusException || throwable instanceof TimeoutException){ // NettyRoutingFilter
+        }else if (throwable instanceof TimeoutException){ // NettyRoutingFilter
             code = "netty-timeout";
             msg = "netty超时 当前responseTime设置值="+environment.getProperty("spring.cloud.gateway.httpclient.responseTimeout");
             log.error("netty-timeout {}",errorDetail);
@@ -63,6 +65,14 @@ public class GatewayHystrixFallbackController {
             if (StringUtils.equals("Acquire operation took longer then configured maximum time",message)){ // FixedChannelPool
                 log.error("netty-pool-acquire-timeout {}",errorDetail);
             }
+        }else if(throwable instanceof ResponseStatusException ){
+            code = "service-response-status-error";
+            msg = "[响应状态错误]："+throwable.getMessage();
+            log.error("service-response-status-error {} throwable",errorDetail,throwable);
+        }else if(throwable instanceof ConnectException){
+            code = "service-offline";
+            msg = "[服务未剔除]服务下线，gateway持有本地服务列表缓存未更新："+throwable.getMessage();
+            log.error("server offline {} gateway serverList is dirty {} ,throwable",errorDetail,throwable);
         }else {
             log.error("unknown {} ,throwable",errorDetail,throwable);
         }

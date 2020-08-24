@@ -1,0 +1,25 @@
+management:
+  endpoints:
+    web:
+      basePath: /actuator
+      exposure:
+        include: "*"
+spring:
+  boot:
+    admin:
+      client:
+        enabled: true
+        url: http://localhost:9876 # 数组
+        autoRegistration: true
+        autoDeregistration: true
+        registerOnce: false # true表示只注册到一台SBA Server上，false表示注册到所有的SBA Server上
+        period: 30000 # 30秒注册一次
+        username: sba-server # 1）注册Application到SBA Server传给Server，【参考SBA Client】：ApplicationRegistrator#register 2）设置用户名则注册到SBA Server RestTemplate 添加了Basic认证，【参考SBA Server】：SpringBootAdminClientAutoConfiguration.registrator
+        password: sba-server
+        instance:
+          preferIp: false # true表示用ip false表示用用host名称
+          metadata:
+            user.name: security # SBA Server访问各个应用的actuator端点 【参考SBA Server】AdminServerAutoConfiguration.basicAuthHttpHeadersProvider
+            user.password: security
+  profiles:
+    include: security # user-client 和 user-password 是当前应用的Spring Security来完成校验的，所以要include application-security.yml，其它应用调用所以使用同一个
