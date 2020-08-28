@@ -31,7 +31,7 @@ public class GuavaRateLimit extends AbstractRateLimiter<GuavaRateLimit.Config> {
     }
 
     @Override
-    public Mono<Response> isAllowed(String routeId, String id) {
+    public Mono<Response> isAllowed(String routeId, String id) { // id为keyResolver返回值
         Config config = getConfig().get(routeId);
         Assert.notNull(config,"routeId="+routeId+"对应的配置不应该为null");
 

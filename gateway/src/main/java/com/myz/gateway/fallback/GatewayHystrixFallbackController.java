@@ -41,19 +41,26 @@ public class GatewayHystrixFallbackController {
         Route route = serverWebExchange.getAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
         Boolean routed = serverWebExchange.getAttribute(ServerWebExchangeUtils.GATEWAY_ALREADY_ROUTED_ATTR);
         Throwable throwable = serverWebExchange.getAttribute(ServerWebExchangeUtils.HYSTRIX_EXECUTION_EXCEPTION_ATTR);
-        URI firstOriginReqUrl = originalReqUrls.iterator().next();
+
+        URI firstOriginReqUrl = null;
+        // 基本是熔断场景，没有请求到目标地址
+        if (originalReqUrls != null && originalReqUrls.size() > 0){
+            firstOriginReqUrl = originalReqUrls.iterator().next();
+        }
 
         String code = ApiResult.ERROR_CODE;
         String msg = ApiResult.ERROR_MSG;
 
-        String errorDetail = String.format("originalReqUrl0=%s ,size=%d,routed?%b,targetRoute=%s",firstOriginReqUrl.toString(),originalReqUrls.size(),routed,route);
+        String errorDetail = String.format("originalReqUrl0=%s ,size=%d,routed?%b,targetRoute=%s",
+                firstOriginReqUrl ==null?"":firstOriginReqUrl.toString(),originalReqUrls==null?0:originalReqUrls.size(),
+                routed,route);
         if (throwable instanceof HystrixTimeoutException){ // 为什么没有找到服务会变成HystrixTimeoutException？
             code = "hystrix-timeout";
             msg = "hystrix超时 当前hystrix超时时间";
             log.error("hystrix-timeout {}",errorDetail);
         }else if (throwable instanceof ServiceUnavailableException){
             code = "service-unavailable";
-            msg = "[服务熔断]不可用";
+            msg = "服务熔断]不可用";
             log.error("service-unavailable {}",errorDetail);
         }else if (throwable instanceof TimeoutException){ // NettyRoutingFilter
             code = "netty-timeout";
@@ -74,7 +81,14 @@ public class GatewayHystrixFallbackController {
             msg = "[服务未剔除]服务下线，gateway持有本地服务列表缓存未更新："+throwable.getMessage();
             log.error("server offline {} gateway serverList is dirty {} ,throwable",errorDetail,throwable);
         }else {
-            log.error("unknown {} ,throwable",errorDetail,throwable);
+            if (StringUtils.equals("Hystrix circuit short-circuited and is OPEN",throwable.getMessage())){
+                code = "Hystrix circuit short-circuited and is OPEN";
+                msg = "[服务熔断] "+throwable.getMessage();
+                log.error("short-circuited {} throwable{} ,throwable",errorDetail,throwable);
+            }else{
+                log.error("unknown {} ,throwable",errorDetail,throwable);
+            }
+
         }
         return ApiResult.build(code,msg,null);
     }

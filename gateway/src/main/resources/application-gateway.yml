@@ -1,11 +1,27 @@
 hystrix:
   command:
     default:
+      circuitBreaker:
+        sleepWindowInMilliseconds: 120000 #5000 # 【熔断后等待窗口时间，没有超过时间hystrix是不放行一个请求的】 如果过了这个时间，在来一个请求，场景一：失败了，那么在此进入熔断 场景二：成功了，熔断关闭
+        requestVolumeThreshold: 20
+        errorThresholdPercentage: 50
+      metrics:
+        rollingStats:
+          timeInMilliseconds: 300000 #10000 # default => statisticalWindow: 10000 = 10 seconds (and default of 10 buckets so each bucket is 1 second)
+        healthSnapshot:
+          intervalInMilliseconds: 60000 #500 # 一个bucket的毫秒数 // default to 500ms as max frequency between allowing snapshots of health (error percentage etc)
+#      fallback:
+#        enabled: true
+#      circuitBreaker:
+#        forceClosed: true
+#        forceOpen: true
       execution:
         isolation:
+          semaphore:
+            maxConcurrentRequests: 2
           strategy: SEMAPHOR # 默认就是 HystrixGatewayFilterFactory.apply(HystrixGatewayFilterFactory.Config) -> HystrixObservableCommand.Setter.setDefaults
           thread:
-            timeoutInMilliseconds: 10000 # 大于
+            timeoutInMilliseconds: 10000 # 大于 responseTimeout
 #        timeout:
 #          enabled: false
 spring:
@@ -23,11 +39,13 @@ spring:
         wiretap: true
         connectTimeout: 45000
         responseTimeout: 9000
-      defaultFilters:
-        - name: Hystrix
-          args:
-            name: defaultFallback
-            fallbackUri: forward:/gateway-hystrix/fallback
+#      defaultFilters: # 后面的routeDefinition，定义跟defaultFitlers中相同的filter会执行两边！！！
+#        - name: Hystrix
+#          args:
+#            name: defaultFallback
+#            fallbackUri: forward:/gateway-hystrix/fallback # scheme为forward的直接通过DispatchHandler来处理 详见ForwardRoutingFilter.filter
+      metadata:
+        mydata: mazi
       routes:
         - id: sc-user-provider-id
           uri: lb://SC-USER-PROVIDER # http://localhost:8081/ #
@@ -35,12 +53,17 @@ spring:
           predicates:
             - Path=/api-user/** # 构造方法方式
           filters:
-            - StripPrefix=1
+            - name: Hystrix
+              args:
+                name: userFallback
+                fallbackUri: forward:/fallback-function # DispatchHandler的RouteFunctionMapping为HandlerMapping
             - name: RequestRateLimiter
               args:
-                guava-rate-limiter.permitsPerSecond: 5
+                guava-rate-limiter.permitsPerSecond: 100
                 guava-rate-limiter.warmupPeriodMs: 1000
-                key-resolver: "#{@ipKeyResolver}"
+                rateLimiter: "#{@guavaRateLimit}"
+                keyResolver: "#{@ipKeyResolver}"
+            - StripPrefix=1
         - id: sc-consumer-id
           uri: http://localhost:8079/
           order: 0
