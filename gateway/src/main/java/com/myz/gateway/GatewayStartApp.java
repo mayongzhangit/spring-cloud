@@ -25,7 +25,10 @@ public class GatewayStartApp implements CommandLineRunner {
         log.info("\n*********gateway config*********\n" +
                 "1) Reactor Netty Access Log (https://cloud.spring.io/spring-cloud-static/spring-cloud-gateway/2.1.5.RELEASE/single/spring-cloud-gateway.html#_reactor_netty_access_logs)\n" +
                 "2) Hystrix fallback forword set GatewayHystrixFallbackController\n" +
-                "3)\n"
+                "3) 动态配置 apollo需要properties，我们工程使用yml需要转换可使用在线工具：https://www.toyaml.com/index.html\n" +
+                "4) 全局错误 路径、文件名等 参考DefaultErrorWebExceptionHandler.renderErrorView\n" +
+                "5) 动态刷新检查是否生效：http://localhost:9999/actuator/gateway/routes\n" +
+                "6) \n"
         );
     }
 }
