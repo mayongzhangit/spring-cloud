@@ -7,20 +7,22 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="zipkin-server" />
-        <module name="gateway" />
-        <module name="thrid-part-provider" />
-        <module name="Demo" />
         <module name="common" />
-        <module name="user-provider" />
-        <module name="user-api" />
-        <module name="order-api" />
-        <module name="sba" />
-        <module name="discovery-server" />
         <module name="consumer" />
+        <module name="Demo" />
+        <module name="discovery-server" />
+        <module name="gateway" />
+        <module name="order-api" />
         <module name="order-provider" />
+        <module name="sba" />
+        <module name="thrid-part-provider" />
+        <module name="user-api" />
+        <module name="user-provider" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="zipkin-server" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
