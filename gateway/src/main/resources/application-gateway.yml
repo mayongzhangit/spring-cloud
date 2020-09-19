@@ -38,14 +38,15 @@ spring:
 #          acquireTimeout: 3000
         wiretap: true
         connectTimeout: 45000
-        responseTimeout: 9000
+        responseTimeout: 9000 # 默认为null即httpClient不超时 ，NettyRoutingFilter#getResponseTimeout
 #      defaultFilters: # 后面的routeDefinition，定义跟defaultFitlers中相同的filter会执行两边！！！
 #        - name: Hystrix
 #          args:
 #            name: defaultFallback
 #            fallbackUri: forward:/gateway-hystrix/fallback # scheme为forward的直接通过DispatchHandler来处理 详见ForwardRoutingFilter.filter
       metadata:
-        mydata: mazi
+        response-timeout: 9000 # 优先级高于HttpClientProperties.responseTimeout 参考：NettyRoutingFilter#getResponseTimeout
+        connect-timeout: 45000
       routes:
         - id: sc-user-provider-id
           uri: lb://SC-USER-PROVIDER # http://localhost:8081/ #
