@@ -7,17 +7,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="common" />
-        <module name="consumer" />
-        <module name="Demo" />
-        <module name="discovery-server" />
         <module name="gateway" />
-        <module name="order-api" />
-        <module name="order-provider" />
-        <module name="sba" />
         <module name="thrid-part-provider" />
-        <module name="user-api" />
+        <module name="Demo" />
+        <module name="common" />
         <module name="user-provider" />
+        <module name="user-api" />
+        <module name="order-api" />
+        <module name="sba" />
+        <module name="discovery-server" />
+        <module name="consumer" />
+        <module name="order-provider" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

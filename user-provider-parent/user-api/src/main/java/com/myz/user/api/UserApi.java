@@ -17,7 +17,7 @@ public interface UserApi {
     String USER_PREFIX = "/user";
 
     @GetMapping(USER_PREFIX+"/stress-test")
-    String stressTest(@RequestParam Long cost, boolean exFlag);
+    String stressTest(@RequestParam("cost") Long cost, @RequestParam("exFlag") boolean exFlag);
 
     @PostMapping(USER_PREFIX+"/save")
     Long saveUser(UserDto userDto);

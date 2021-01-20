@@ -1,0 +1,16 @@
+ribbon:
+  eager-load:
+    enabled: true
+    clients:
+      - sc-user-provider
+      - SC-USER-PROVIDER
+      - sc-order-provider
+      - SC-ORDER-PROVIDER
+#ribbon 前缀的原因 org.springframework.cloud.context.named.NamedContextFactory.createContext(serviceId) -->
+#context.getEnvironment().getPropertySources().addFirst(new MapPropertySource(this.propertySourceName,Collections.<String, Object>singletonMap(this.propertyName, name)));
+# propertyName public SpringClientFactory() {super(RibbonClientConfiguration.class, NAMESPACE, "ribbon.client.name");} 即将ribbon.client.name环境变量设置为serviceId，从后续的DefaultClientConfigImpl读取的clientName(取的是ribbon.client.name环境变量的值)都是serviceId
+sc-user-provider:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.myz.consumer.ribbon.MyRule
+    NFLoadBalancerPingClassName: com.myz.consumer.ribbon.MyPing
+    #listOfServers:
